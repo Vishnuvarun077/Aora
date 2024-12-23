@@ -63,33 +63,19 @@ Make sure you have the following installed on your machine:
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
 **Cloning the Repository**
-
-<!-- ```bash
+To clone the repository, use the following commands:
+```bash
 git clone git@github.com:Vishnuvarun077/Aora.git
 cd Aora
-## Contributing
-
-Contributions are welcome! Please fork this repository and submit a pull request with your improvements or bug fixes.
-
-### Contact
-
-For any questions or suggestions, feel free to reach out:
-
-- **Email:** [vishnuvarun.thorthi7@gmail.com](mailto:vishnuvarun.thorthi7@gmail.com)
-- **LinkedIn:** [Sri Vishnuvarun Thorthi](https://www.linkedin.com/in/sri-vishnuvarun-thorthi/) -->
-
+```
 
 
 ```markdown
 
 ## Cloning the Repository
 
-To clone the repository, use the following commands:
 
-```bash
-git clone git@github.com:Vishnuvarun077/Aora.git
-cd Aora
-```
+
 
 ## Contributing
 
