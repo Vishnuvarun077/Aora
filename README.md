@@ -62,15 +62,15 @@ Make sure you have the following installed on your machine:
 - [Node.js](https://nodejs.org/en)
 - [npm](https://www.npmjs.com/) (Node Package Manager)
 
+**Cloning the Repository**
+
+To clone the repository, use the following commands:
 
 
 ```markdown
 
-## Cloning the Repository
 
-To clone the repository, use the following commands:
-
-```bash
+```
 git clone git@github.com:Vishnuvarun077/Aora.git
 cd Aora
 ```
