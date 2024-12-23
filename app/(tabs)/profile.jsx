@@ -1,90 +1,88 @@
-import { router } from "expo-router";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Image, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView, FlatList, Image, RefreshControl, Alert, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import SearchInput from '../../components/SearchInput';
 
-import { icons } from "../../constants";
-import useAppwrite from "../../lib/useAppwrite";
-import { getUserPosts, signOut } from "../../lib/appwrite";
-import { useGlobalContext } from "../../context/GlobalProvider";
-import { EmptyState, InfoBox, VideoCard } from "../../components";
+import { icons } from '../../constants'
+
+import EmptyState from '../../components/EmptyState';
+import { getUserPosts, signOut } from '../../lib/appwrite';
+import useAppWrite from '../../lib/useAppwrite';
+import VideoCard from '../../components/VideoCard';
+import { useGlobalContext } from '../../context/GlobalProvider';
+import { router } from 'expo-router';
 
 const Profile = () => {
-  const { user, setUser, setIsLogged } = useGlobalContext();
-  const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
+  
+  const { user } = useGlobalContext();
+  const { data: posts} = useAppWrite(() => getUserPosts(user.$id));
 
-  const logout = async () => {
-    await signOut();
-    setUser(null);
-    setIsLogged(false);
 
-    router.replace("/sign-in");
-  };
+  const logOut = async () =>  {
+    await signOut(); 
+    router.replace('/sign-in');
+  }
 
   return (
-    <SafeAreaView className="bg-primary h-full">
-      <FlatList
+    <SafeAreaView className='bg-primary h-full'>
+      <FlatList  
         data={posts}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
-          <VideoCard
-            title={item.title}
-            thumbnail={item.thumbnail}
-            video={item.video}
-            creator={item.creator.username}
-            avatar={item.creator.avatar}
-          />
-        )}
-        ListEmptyComponent={() => (
-          <EmptyState
-            title="No Videos Found"
-            subtitle="No videos found for this profile"
+          <VideoCard 
+            post={item}
           />
         )}
         ListHeaderComponent={() => (
-          <View className="w-full flex justify-center items-center mt-6 mb-12 px-4">
-            <TouchableOpacity
-              onPress={logout}
-              className="flex w-full items-end mb-10"
-            >
-              <Image
-                source={icons.logout}
-                resizeMode="contain"
-                className="w-6 h-6"
-              />
-            </TouchableOpacity>
-
-            <View className="w-16 h-16 border border-secondary rounded-lg flex justify-center items-center">
-              <Image
-                source={{ uri: user?.avatar }}
-                className="w-[90%] h-[90%] rounded-lg"
-                resizeMode="cover"
-              />
+          <View className='my-6 px-4'>
+            <View className='justify-between items-end flex-col'>
+            <View className='mt-1.5'>
+                <TouchableOpacity activeOpacity={0.7} onPress={logOut}>
+                  <Image 
+                    source={icons.logout}
+                    className='w-7 h-9'
+                    resizeMode='contain'
+                  />
+                </TouchableOpacity>
+              </View>
+              <View className='self-center items-center gap-2 pb-3'>
+                <Image 
+                  source={{uri: user?.avatar}}
+                  className='rounded-lg w-[46px] h-[46px]'
+                  resizeMode='cover'
+                />
+                <Text className='text-2xl font-psemibold text-gray-100'>
+                  {user?.username}
+                </Text>
+              </View>
+              <View className='self-center flex-row justify-center gap-5 items-center'>
+                <View className='flex-col items-center'>
+                  <Text className='text-white text-lg'>{posts.length}</Text>
+                  <Text className='text-gray-100 text-lg'>Posts</Text>
+                </View>
+                <View className='flex-col items-center'>
+                  <Text className='text-white text-lg'>0</Text>
+                  <Text className='text-gray-100 text-lg'>Views</Text>
+                </View>
+              </View>
+             
             </View>
-
-            <InfoBox
-              title={user?.username}
-              containerStyles="mt-5"
-              titleStyles="text-lg"
-            />
-
-            <View className="mt-5 flex flex-row">
-              <InfoBox
-                title={posts.length || 0}
-                subtitle="Posts"
-                titleStyles="text-xl"
-                containerStyles="mr-10"
-              />
-              <InfoBox
-                title="1.2k"
-                subtitle="Followers"
-                titleStyles="text-xl"
-              />
+            <View className='mt-6 mb-2'>
+              {/* <SearchInput initialQuery={query}/> */}
             </View>
+  
           </View>
+        )}
+
+        ListEmptyComponent={() => (
+          <EmptyState 
+            title='No Videos Found'
+            subtitle='No videos found for this user'
+          />
         )}
       />
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Profile;
+export default Profile
