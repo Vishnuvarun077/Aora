@@ -70,9 +70,10 @@ To clone the repository, use the following commands:
 ```markdown
 
 
-```
+``` bash
 git clone git@github.com:Vishnuvarun077/Aora.git
 cd Aora
+
 ```
 
 ## Contributing
