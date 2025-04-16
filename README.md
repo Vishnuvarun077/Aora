@@ -50,6 +50,10 @@ Aora App is a mobile application designed to let users upload, share, and discov
 
 and many more, including code architecture and reusability 
 
+## Aora App Architecture
+![Mermaid Chart](aoraapparchitecture.svg)
+
+
 ## 🤸 Quick Start
 
 Follow these steps to set up the project locally on your machine.
